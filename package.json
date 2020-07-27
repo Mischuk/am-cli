@@ -1,0 +1,33 @@
+{
+  "name": "am-cli",
+  "version": "1.0.0",
+  "description": "JS/React starter",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "cli",
+    "js",
+    "react",
+    "stylelint",
+    "eslint",
+    "prettier"
+  ],
+  "author": {
+    "name": "Alexander Mischuk",
+    "email": "mischuk.alexander@gmail.com",
+    "url": "https://github.com/Mischuk"
+  },
+  "contributors": [
+    "Alexander Mischuk <mischuk.alexander@gmail.com> (https://github.com/Mischuk)"
+  ],
+  "bugs": "https://github.com/Mischuk/am-cli/package/issues",
+  "license": "ISC",
+  "homepage": "https://github.com/Mischuk/am-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mischuk/am-cli.git"
+  },
+  "private": true
+}
