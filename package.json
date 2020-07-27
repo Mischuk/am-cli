@@ -22,7 +22,7 @@
   "contributors": [
     "Alexander Mischuk <mischuk.alexander@gmail.com> (https://github.com/Mischuk)"
   ],
-  "bugs": "https://github.com/Mischuk/am-cli/package/issues",
+  "bugs": "https://github.com/Mischuk/am-cli/issues",
   "license": "ISC",
   "homepage": "https://github.com/Mischuk/am-cli",
   "repository": {
