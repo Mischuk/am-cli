@@ -1,6 +1,6 @@
 {
   "name": "am-cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "JS/React starter",
   "main": "index.js",
   "scripts": {
