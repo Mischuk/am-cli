@@ -5,6 +5,7 @@ const Listr = require("listr");
 const inquirer = require("inquirer");
 const fse = require("fs-extra");
 const fs = require("fs");
+const path = require("path");
 let dependencies = [
   "stylelint",
   "react-transition-group",
@@ -19,14 +20,15 @@ let dependencies = [
   "stylelint-scss",
   "stylelint-no-unsupported-browser-features",
 ];
-const copyFolders = (froma, toa) => {
-  fse.copy(froma, toa, function (err) {
+
+const copyFolders = (from, to) => {
+  fse.copy(path.resolve(__dirname, from), to, function (err) {
     if (err) return console.error(err);
   });
 };
 
-const copyFiles = (froma, toa) => {
-  fs.copyFile(froma, toa, function (err) {
+const copyFiles = (from, to) => {
+  fs.copyFile(path.resolve(__dirname, from), to, function (err) {
     if (err) return console.error(err);
   });
 };
@@ -40,22 +42,19 @@ const runReactApp = () => {
     {
       title: "Add linter rules",
       task: () => {
-        copyFiles(`${modules}/source/common/.prettierrc`, "./.prettierrc");
-        copyFiles(
-          `${modules}/source/common/.stylelintignore`,
-          "./.stylelintignore",
-        );
-        copyFiles(`${modules}/source/common/.stylelintrc`, "./.stylelintrc");
+        copyFiles(`./source/common/.prettierrc`, "./.prettierrc");
+        copyFiles(`./source/common/.stylelintignore`, "./.stylelintignore");
+        copyFiles(`./source/common/.stylelintrc`, "./.stylelintrc");
       },
     },
     {
       title: "Add styles",
       task: () => {
-        copyFolders(`${modules}/source/common/styles`, "./src/styles");
+        copyFolders(`./source/common/styles`, "./src/styles");
       },
     },
     {
-      title: "Running npm install",
+      title: "Install dependencies",
       task: () => execa("npm", ["install", ...dependencies]),
     },
   ]).run();
