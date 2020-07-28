@@ -25,7 +25,7 @@
   "contributors": [
     "Alexander Mischuk <mischuk.alexander@gmail.com> (https://github.com/Mischuk)"
   ],
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+
   "bugs": "https://github.com/Mischuk/am-cli/issues",
   "license": "ISC",
   "homepage": "https://github.com/Mischuk/am-cli",
