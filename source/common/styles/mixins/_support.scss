@@ -1,0 +1,29 @@
+@mixin support($browser) {
+    @if $browser == "ie" {
+        // IE 11
+        @media all and (-ms-high-contrast: none) {
+            @content;
+        }
+    }
+
+    @if $browser == "edge" {
+        // Edge
+        @supports (-ms-ime-align: auto) {
+            @content;
+        }
+    }
+
+    @if $browser == "safari" {
+        // Safari 9+
+        @supports (-webkit-marquee-repetition: infinite) and (object-fit: fill) {
+            @content;
+        }
+    }
+
+    @if $browser == "firefox" {
+        // Firefox
+        @-moz-document url-prefix() {
+            @content;
+        }
+    }
+}

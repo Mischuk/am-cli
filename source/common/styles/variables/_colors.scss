@@ -1,0 +1,56 @@
+$colors: (
+    "primary": (
+        "base": hsl(171, 100%, 41%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "secondary": (
+        "base": hsl(171, 50%, 25%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "accent": (
+        "base": hsl(273, 100%, 41%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "link": (
+        "base": hsl(217, 71%, 53%),
+        "inverted": hsl(0, 0%, 4%),
+    ),
+    "info": (
+        "base": hsl(204, 86%, 53%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "warning": (
+        "base": hsl(48, 100%, 67%),
+        "inverted": hsl(0, 0%, 4%),
+    ),
+    "error": (
+        "base": hsl(348, 100%, 61%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "success": (
+        "base": hsl(141, 53%, 53%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "black": (
+        "base": hsl(0, 0%, 4%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "white": (
+        "base": hsl(0, 0%, 100%),
+        "inverted": hsl(0, 0%, 4%),
+    ),
+    "dark": (
+        "base": hsl(0, 0%, 21%),
+        "inverted": hsl(0, 0%, 100%),
+    ),
+    "light": (
+        "base": hsl(0, 0%, 96%),
+        "inverted": hsl(0, 0%, 4%),
+    ),
+);
+
+:root {
+    @each $color-name, $color-value in $colors {
+        --#{$color-name}: #{map-get($color-value, "base")};
+    }
+}

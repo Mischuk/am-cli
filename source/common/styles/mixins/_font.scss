@@ -1,0 +1,29 @@
+@mixin font($family: "primary", $weight: false, $size: false, $height: false, $cursive: false, $uppercase: false) {
+    @if ($family == "primary") {
+        font-family: "Roboto Slab", serif; /* stylelint-disable-line */
+    } @else if ($family == "secondary") {
+        font-family: "Roboto", sans-serif; /* stylelint-disable-line */
+    } @else {
+        @error "Font-family must be 'primary' or 'secondary'.";
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $height {
+        line-height: $height;
+    }
+
+    @if ($cursive == "italic") {
+        font-style: italic;
+    }
+
+    @if $uppercase {
+        text-transform: uppercase;
+    }
+}

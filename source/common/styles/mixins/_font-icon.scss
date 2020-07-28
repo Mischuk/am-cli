@@ -1,0 +1,11 @@
+@mixin font-icon($name: null, $size: null, $weight: null) {
+    &:before {
+        font-size: $size;
+        line-height: $size;
+        font-icon: url("../../assets/images/_svg-icons/#{$name}.svg");
+
+        @if $weight {
+            font-weight: $weight;
+        }
+    }
+}

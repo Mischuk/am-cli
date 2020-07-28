@@ -1,0 +1,9 @@
+{
+    "events": {
+      "start": "cls || clear"
+    },
+    "watch": [
+      "./dist/*.js"
+    ],
+    "quiet": true
+}

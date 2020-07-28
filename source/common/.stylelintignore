@@ -1,0 +1,10 @@
+styles/scss/vendors/*.scss
+styles/scss/utils/_breackpoints.scss
+styles/scss/utils/_functions.scss
+styles/scss/utils/_mixins.scss
+styles/scss/themes/*.scss
+styles/scss/base/_shame.scss
+styles/scss/base/_reset.scss
+styles/scss/base/_flags.scss
+styles/scss/modules/_pure-chat-widget.scss
+styles/scss/*.scss

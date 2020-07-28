@@ -1,0 +1,9 @@
+@mixin set-container($wrapper: $container, $space: $gap) {
+    padding-right: $space;
+    padding-left: $space;
+
+    @media screen and (min-width: $wrapper + ($space * 2)) {
+        padding-right: calc(50vw - #{($wrapper / 2)});
+        padding-left: calc(50vw - #{($wrapper / 2)});
+    }
+}

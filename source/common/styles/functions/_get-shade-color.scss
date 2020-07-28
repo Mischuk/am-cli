@@ -1,0 +1,3 @@
+@function get-shade-color($color) {
+    @return deep-map-get($colors-shades, $color);
+}

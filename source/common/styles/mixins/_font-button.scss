@@ -1,0 +1,3 @@
+@mixin font-button($size: 14px) {
+    @include font("secondary", 600, $size, 1, false, true);
+}

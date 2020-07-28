@@ -1,0 +1,38 @@
+@mixin columns($col: 0, $spacer: $gap) {
+    display: flex;
+
+    @if ($col == 0) {
+        flex-wrap: nowrap;
+
+        & > * {
+            flex: 1;
+        }
+    } @else {
+        flex-wrap: wrap;
+        margin-top: $spacer;
+
+        & > * {
+            $column-width: calc(
+                (100% / #{$col}) - (#{($spacer / $col) * ($col - 1)})
+            );
+
+            width: $column-width;
+            max-width: $column-width;
+            margin-top: $spacer;
+
+            & + * {
+                margin-left: $spacer;
+
+                &:nth-child(#{$col}n + 1) {
+                    margin-left: 0;
+                }
+            }
+
+            @for $i from 1 through $col {
+                &:nth-child(#{$i}) {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

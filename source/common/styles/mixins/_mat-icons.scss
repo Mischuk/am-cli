@@ -1,0 +1,25 @@
+@mixin mat-icons($content: null, $font-size-icon: null, $line-height-icon: null) {
+    display: inline-block;
+    font-weight: 400;
+    font-family: "Material Icons"; /* stylelint-disable-line property-blacklist */
+    font-style: normal;
+    direction: ltr;
+    letter-spacing: normal;
+    white-space: nowrap;
+    text-transform: none;
+    word-wrap: normal;
+    font-smoothing: antialiased;
+    font-feature-settings: "liga";
+
+    @if $content {
+        content: $content;
+    }
+
+    @if $font-size-icon {
+        font-size: $font-size-icon;
+    }
+
+    @if $line-height-icon {
+        line-height: $line-height-icon;
+    }
+}
