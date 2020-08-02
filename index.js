@@ -2,10 +2,12 @@
 const modules = "./node_modules/am-cli";
 const execa = require("execa");
 const Listr = require("listr");
+const UpdaterRenderer = require("listr-update-renderer");
 const inquirer = require("inquirer");
 const fse = require("fs-extra");
 const fs = require("fs");
 const path = require("path");
+
 const src = "./src";
 const reactDependencies = [
   "stylelint",
@@ -74,11 +76,64 @@ const copyStyles = () => {
 };
 
 const installDependencies = dependencies => {
-  execa("npm", ["install", ...dependencies]);
+  let deps = dependencies.join(" ");
+  return execa(deps);
 };
 
+function getSubtasks(parentTask, dependencies) {
+  let tasks = [];
+  const totalPackages = dependencies.length;
+  let installProgress;
+  const updateProgress = function (index) {
+    installProgress = `${index + 1} / ${totalPackages}`;
+  };
+  updateProgress(0);
+
+  dependencies.forEach((dep, index) => {
+    tasks.push({
+      title: `${dep}`,
+      task: (ctx, task) => {
+        let args = ["install", "--save", "--save-exact"];
+        parentTask.title = `Install dependencies: ${dep} [${installProgress}]`;
+        updateProgress(index + 1);
+        return execa("npm", args.concat(dep, ["--verbose"]));
+      },
+    });
+  });
+
+  return tasks;
+}
+
+function generateLists(deps) {
+  return new Listr(
+    [
+      {
+        title: "Install dependencies...",
+        task: (parentCtx, parentTask) => {
+          const subtasks = getSubtasks(parentTask, deps);
+          const list = new Listr(subtasks, { concurrent: false });
+          const runFn = list.run.bind(list);
+
+          list.run = () => {
+            return runFn().then(() => {
+              parentTask.title = "Install dependencies";
+            });
+          };
+
+          return list;
+        },
+      },
+    ],
+    {
+      renderer: UpdaterRenderer,
+      collapse: false,
+      showSubtasks: false,
+    },
+  );
+}
+
 const runReactApp = () => {
-  new Listr([
+  const assets = new Listr([
     {
       title: "Install create-react-app",
       task: () => execa("npx create-react-app ."),
@@ -95,15 +150,17 @@ const runReactApp = () => {
         copyStyles();
       },
     },
-    {
-      title: "Install dependencies",
-      task: () => installDependencies(reactDependencies),
-    },
-  ]).run();
+  ]);
+
+  const installDependencies = generateLists(reactDependencies);
+
+  assets.run().then(() => {
+    installDependencies.run();
+  });
 };
 
 const runJavascriptApp = () => {
-  new Listr([
+  const assets = new Listr([
     {
       title: "Add linter rules",
       task: () => {
@@ -111,6 +168,7 @@ const runJavascriptApp = () => {
           fs.mkdirSync(src);
         }
         copyLinterRules(true);
+        execa("npm", ["init", "-y"]);
       },
     },
     {
@@ -131,18 +189,12 @@ const runJavascriptApp = () => {
       title: "Initial package.json",
       task: () => execa("npm", ["init", "-y"]),
     },
-    {
-      title: "Install dependencies",
-      task: () => installDependencies(jsDependencies),
-    },
-    {
-      title: "Add scripts to package.json",
-      task: () => {
-        execa("npm npmAddScript", ["-k", "start", "-v", "webpack-dev-server"]);
-        execa("npm npmAddScript", ["-k", "build", "-v", "webpack"]);
-      },
-    },
-  ]).run();
+  ]);
+
+  const installDependencies = generateLists(jsDependencies);
+  assets.run().then(() => {
+    installDependencies.run();
+  });
 };
 
 inquirer
