@@ -192,8 +192,22 @@ const runJavascriptApp = () => {
   ]);
 
   const installDependencies = generateLists(jsDependencies);
+  const addScripts = new Listr([
+    {
+      title: "Add scripts to package.json",
+      task: () => {
+        return execa("npx", [
+          "npmAddScript",
+          "-k",
+          "start",
+          "-v",
+          "webpack-dev-server",
+        ]);
+      },
+    },
+  ]);
   assets.run().then(() => {
-    installDependencies.run();
+    installDependencies.run().then(() => addScripts.run());
   });
 };
 
