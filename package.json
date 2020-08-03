@@ -1,10 +1,11 @@
 {
   "name": "am-cli",
   "version": "1.0.10",
-  "description": "JS/React starter",
-  "main": "index.js",
+  "description": "Simple CLI to quick start project based on React or JavaScript",
+  "main": "./dist/app.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "webpack"
   },
   "keywords": [
     "cli",
@@ -14,8 +15,14 @@
     "eslint",
     "prettier"
   ],
+  "files": [
+    "dist"
+  ],
   "bin": {
-    "am-cli": "./index.js"
+    "am-cli": "dist/app.js"
+  },
+  "browser": {
+    "child_process": false
   },
   "author": {
     "name": "Alexander Mischuk",
@@ -42,5 +49,15 @@
     "listr": "^0.14.3",
     "listr-update-renderer": "^0.5.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.0.3",
+    "shebang-loader": "0.0.1",
+    "terser": "^5.0.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

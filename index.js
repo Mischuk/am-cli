@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-const modules = "./node_modules/am-cli";
-const execa = require("execa");
-const Listr = require("listr");
-const UpdaterRenderer = require("listr-update-renderer");
-const inquirer = require("inquirer");
-const fse = require("fs-extra");
-const fs = require("fs");
-const path = require("path");
+import { execa } from "execa";
+import { fs } from "fs";
+import { fse } from "fs-extra";
+// const inquirer = require("inquirer");
+import inquirer from "inquirer";
+// const execa = require("execa");
+// const Listr = require("listr");
+import Listr from "listr";
+// const UpdaterRenderer = require("listr-update-renderer");
+import UpdaterRenderer from "listr-update-renderer";
+import path from "path";
 
 const src = "./src";
 const reactDependencies = [
