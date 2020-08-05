@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const modules = "./node_modules/am-cli";
 const execa = require("execa");
 const Listr = require("listr");
 const UpdaterRenderer = require("listr-update-renderer");
@@ -61,18 +60,18 @@ const copyFiles = (from, to) => {
 };
 
 const copyLinterRules = (requireEslint = false) => {
-  copyFiles(`./source/common/.prettierrc`, "./.prettierrc");
-  copyFiles(`./source/common/.stylelintignore`, "./.stylelintignore");
-  copyFiles(`./source/common/.stylelintrc`, "./.stylelintrc");
+  copyFiles(`./assets/common/.prettierrc`, "./.prettierrc");
+  copyFiles(`./assets/common/.stylelintignore`, "./.stylelintignore");
+  copyFiles(`./assets/common/.stylelintrc`, "./.stylelintrc");
 
   if (requireEslint) {
-    copyFiles(`./source/js/.eslintrc`, "./.eslintrc");
-    copyFiles(`./source/js/babel.config.json`, "./babel.config.json");
+    copyFiles(`./assets/javascript/.eslintrc`, "./.eslintrc");
+    copyFiles(`./assets/javascript/babel.config.json`, "./babel.config.json");
   }
 };
 
 const copyStyles = () => {
-  copyFolders(`./source/common/styles`, "./src/styles");
+  copyFolders(`./assets/common/styles`, "./src/styles");
 };
 
 const installDependencies = dependencies => {
@@ -180,9 +179,12 @@ const runJavascriptApp = () => {
     {
       title: "Add webpack entries",
       task: () => {
-        copyFiles("./source/js/index.html", "./src/index.html");
-        copyFiles("./source/js/index.js", "./src/index.js");
-        copyFiles(`./source/js/webpack.config.js`, "./webpack.config.js");
+        copyFiles("./assets/javascript/index.html", "./src/index.html");
+        copyFiles("./assets/javascript/index.js", "./src/index.js");
+        copyFiles(
+          `./assets/javascript/webpack.config.js`,
+          "./webpack.config.js",
+        );
       },
     },
     {
