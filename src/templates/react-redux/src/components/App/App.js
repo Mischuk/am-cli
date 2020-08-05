@@ -21,7 +21,7 @@ function App({ user, getUser }) {
           <HomePage user={user} />
         </Route>
         <Route path="/secondary">
-          <SecondaryPage user={user} />
+          <SecondaryPage />
         </Route>
       </Switch>
     </div>

@@ -12,10 +12,10 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <HomePage user={user} />
+          <HomePage />
         </Route>
         <Route path="/secondary">
-          <SecondaryPage user={user} />
+          <SecondaryPage />
         </Route>
       </Switch>
     </div>
