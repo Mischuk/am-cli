@@ -6,8 +6,8 @@ import { promisify } from "util";
 import { getDeps } from "../../utils/dependencies";
 import { depsInstall as runInstallDependencies } from "../../utils/installs";
 import { npmScripts as runAddNpmScripts } from "../../utils/npmScripts";
+import { runCreateReactApp } from "../../utils/runCreateReactApp";
 import { tasks as runTasks } from "../../utils/tasks";
-const UpdaterRenderer = require("listr-update-renderer");
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
@@ -54,7 +54,7 @@ export async function createProject(options) {
     console.error("%s Invalid template name", chalk.red.bold("ERROR"));
     process.exit(1);
   }
-
+  await runCreateReactApp(options).run();
   await runTasks(options, copyFiles).run();
   await runInstallDependencies(dependencies, options).run();
   await runAddNpmScripts(options).run();

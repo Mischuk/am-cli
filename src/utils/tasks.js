@@ -1,5 +1,6 @@
 import execa from "execa";
 import Listr from "listr";
+import UpdaterRenderer from "listr-update-renderer";
 import path from "path";
 import { cleanDir } from "./cleanDir";
 
@@ -16,33 +17,36 @@ export const tasks = (options, copyFiles) => {
   const forJS = () => template === "javascript";
   const reactSrc = path.resolve(targetDirectory, "src");
 
-  return new Listr([
+  return new Listr(
+    [
+      {
+        title: "Remove default react files",
+        enabled: () => forReact(),
+        task: () => cleanDir(reactSrc),
+      },
+      {
+        title: "Copy template",
+        task: () => copyFiles(templateDirectory, targetDirectory),
+      },
+      {
+        title: "Copy linter rules",
+        task: () => copyFiles(lintersDirectory, targetDirectory),
+      },
+      {
+        title: "Copy styles",
+        task: () => copyFiles(stylesDirectory, targetDirectory + "/src/styles"),
+      },
+      {
+        title: "Initial package.json",
+        enabled: () => forJS(),
+        task: () => execa("npm", ["init", "-y"]),
+      },
+    ],
     {
-      title: "Install create-react-app",
-      enabled: () => forReact(),
-      task: () => execa("npx create-react-app ."),
+      renderer: UpdaterRenderer,
+      collapse: false,
+      showSubtasks: true,
+      concurrent: false,
     },
-    {
-      title: "Remove default react files",
-      enabled: () => forReact(),
-      task: () => cleanDir(reactSrc),
-    },
-    {
-      title: "Copy template",
-      task: () => copyFiles(templateDirectory, targetDirectory),
-    },
-    {
-      title: "Copy linter rules",
-      task: () => copyFiles(lintersDirectory, targetDirectory),
-    },
-    {
-      title: "Copy styles",
-      task: () => copyFiles(stylesDirectory, targetDirectory + "/src/styles"),
-    },
-    {
-      title: "Initial package.json",
-      enabled: () => forJS(),
-      task: () => execa("npm", ["init", "-y"]),
-    },
-  ]);
+  );
 };

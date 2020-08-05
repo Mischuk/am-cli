@@ -18,7 +18,7 @@ function getSubtasks(parentTask, dependencies) {
         let args = ["install", "--save-dev"];
         parentTask.title = `Install dependencies: ${dep} [${installProgress}]`;
         updateProgress(index + 1);
-        return execa("npm", args.concat(dep, ["--verbose"]));
+        return execa("npm", args.concat(dep));
       },
     });
   });
