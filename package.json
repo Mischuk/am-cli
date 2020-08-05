@@ -1,6 +1,6 @@
 {
   "name": "am-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JS/React starter",
   "main": "src/index.js",
   "scripts": {
@@ -46,7 +46,5 @@
     "ncp": "^2.0.0",
     "path": "^0.12.7"
   },
-  "devDependencies": {
-    "pkg-install": "^1.0.0"
-  }
+  "devDependencies": {}
 }
