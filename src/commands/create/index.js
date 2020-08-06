@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import fs from "fs";
 import ncp from "ncp";
-import path from "path";
 import { promisify } from "util";
 import { getDeps } from "../../utils/dependencies";
+import { getPath } from "../../utils/getPath";
 import { depsInstall as runInstallDependencies } from "../../utils/installs";
 import { npmScripts as runAddNpmScripts } from "../../utils/npmScripts";
 import { runCreateReactApp } from "../../utils/runCreateReactApp";
@@ -16,15 +16,6 @@ const copyFiles = async (from, to) => {
   return copy(from, to, {
     clobber: false,
   });
-};
-
-const getPath = (url, template = "") => {
-  const currentFileUrl = import.meta.url;
-  return path.resolve(
-    new URL(currentFileUrl).pathname.slice(1),
-    url,
-    template.toLowerCase(),
-  );
 };
 
 export async function createProject(options) {

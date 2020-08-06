@@ -1,0 +1,1 @@
+let component_url = "C:/custom-templates/";
