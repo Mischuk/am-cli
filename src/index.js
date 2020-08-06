@@ -21,15 +21,5 @@ export async function cli(args) {
       await createProject(options);
     });
 
-  /*
-    GENERATE COMPONENT
-  */
-  program
-    .command("generate")
-    .allowUnknownOption()
-    .action(async () => {
-      console.log("generate component");
-    });
-
   program.parse(process.argv);
 }
